@@ -1,0 +1,53 @@
+name: Publish Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Download and Push Package
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_NAME: 'nostr-did-resolver'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 22
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'npm'
+
+    - name: Package Name
+      run: |
+        echo RELEASE_NAME=${{ env.PROJECT_NAME }}-${{ github.event.release.tag_name }}.tgz >> $GITHUB_ENV
+      shell: bash
+
+    - name: Log Variables
+      run: |
+        echo "action - ${{ github.event.action }}"
+        echo "url - ${{ github.event.release.url }}"
+        echo "assets_url - ${{ github.event.release.assets_url }}"
+        echo "id - ${{ github.event.release.id }}"
+        echo "tag_name - ${{ github.event.release.tag_name }}"
+        echo "assets - ${{ github.event.assets }}"
+        echo "assets[0] - ${{ github.event.assets[0] }}"
+
+    - name: Download release
+      uses: sondreb/action-release-download@master
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        url: ${{ github.event.release.assets_url }}
+        folder: "./"
+
+    - name: Display structure of downloaded files
+      run: ls -R
+
+    - name: NPM Publish
+      run: npm publish ${{env.RELEASE_NAME}} --access public
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}

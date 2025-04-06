@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "strict": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "allowJs": false
+  },
+  "include": ["src", "ambient.d.ts", "test/identity.test.ts"],
+  "exclude": ["node_modules", "test", "**/__tests__/*"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "experimentalResolver": true
+  }
+}
+
+
