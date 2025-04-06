@@ -27,10 +27,6 @@ Here is example of the output from the resolve function:
 
 ```json
 {
-  "didResolutionMetadata": {
-    "contentType": "application/did+ld+json",
-    "retrieved": "2025-04-06T00:43:38.633Z"
-  },
   "didDocument": {
     "@context": [
       "https://www.w3.org/ns/did/v1"
@@ -84,6 +80,10 @@ Here is example of the output from the resolve function:
         "serviceEndpoint": "wss://nos.lol"
       }
     ]
+  },
+  "didResolutionMetadata": {
+    "contentType": "application/did+ld+json",
+    "retrieved": "2025-04-06T00:43:38.633Z"
   },
   "didDocumentMetadata": {
     "deactivated": false
