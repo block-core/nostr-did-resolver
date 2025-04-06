@@ -29,6 +29,9 @@ test('Create the resolver', async t => {
   t.assert(didResolution.didDocumentMetadata.profile !== null);
   t.assert(didResolution.didDocumentMetadata.profile.name == 'sondreb');
 
+  // Used to generate README example:
+  // console.log(JSON.stringify(didResolution, null, 2));
+
   didResolution = await resolver.resolve('null');
   t.assert(didResolution.didResolutionMetadata.error == 'invalidDid');
 

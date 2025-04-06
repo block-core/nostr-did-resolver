@@ -27,6 +27,7 @@ Here is example of the output from the resolve function:
 
 ```json
 {
+{
   "didDocument": {
     "@context": [
       "https://www.w3.org/ns/did/v1"
@@ -83,10 +84,26 @@ Here is example of the output from the resolve function:
   },
   "didResolutionMetadata": {
     "contentType": "application/did+ld+json",
-    "retrieved": "2025-04-06T00:43:38.633Z"
+    "retrieved": "2025-04-06T12:14:21.770Z"
   },
   "didDocumentMetadata": {
-    "deactivated": false
+    "created": 1732224363,
+    "updated": 1732224363,
+    "deactivated": false,
+    "profile": {
+      "about": "Developer of Blockcore Notes and Blockcore Wallet (Nostr browser extension).\nVoluntaryism. Decentralize everything.",
+      "banner": "https://nostr.build/i/nostr.build_74ee63e85287e5b3351d757724e57d53d17b9f029bfad7d77dcb913b325727bb.png",
+      "display_name": "SondreB",
+      "lud16": "sondreb@npub.cash",
+      "name": "sondreb",
+      "nip05": "_@sondreb.com",
+      "picture": "https://m.primal.net/OJWl.jpg",
+      "website": "https://sondreb.com",
+      "displayName": "SondreB",
+      "pubkey": "17e2889fba01021d048a13fd0ba108ad31c38326295460c21e69c43fa8fbe515",
+      "npub": "npub1zl3g38a6qypp6py2z07shggg45cu8qex992xpss7d8zrl28mu52s4cjajh",
+      "created_at": 1732224363
+    }
   }
 }
 ```
