@@ -16,12 +16,7 @@ export class BlockcoreDidResolver {
     }
   }
 
-  async resolve(
-    _did: string,
-    parsed: ParsedDID,
-    _resolver: Resolvable,
-    _options: DIDResolutionOptions,
-  ): Promise<DIDResolutionResult> {
+  async resolve(_did: string, parsed: ParsedDID, _resolver: Resolvable, _options: DIDResolutionOptions): Promise<DIDResolutionResult> {
     if (parsed.method !== 'nostr') {
       return {
         didResolutionMetadata: {

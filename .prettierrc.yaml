@@ -1,9 +1,9 @@
 arrowParens: avoid
 bracketSpacing: true
 insertPragma: false
-printWidth: 120
+printWidth: 400
 proseWrap: preserve
-semi: false
+semi: true
 singleQuote: true
 trailingComma: all
 useTabs: false
