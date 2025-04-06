@@ -29,6 +29,7 @@ export class BlockcoreDidResolver {
 
     const pool = new SimplePool();
     const services = [] as any[];
+    let profile = null;
 
     const metadata = await pool.get(this.#relays, {
       kinds: [kinds.Metadata],
@@ -43,8 +44,8 @@ export class BlockcoreDidResolver {
     pool.close(this.#relays);
 
     if (metadata?.content) {
-      const metadataObject = JSON.parse(metadata.content);
-      const website = metadataObject.website;
+      profile = JSON.parse(metadata.content);
+      const website = profile.website;
 
       if (website) {
         services.push({
@@ -55,7 +56,7 @@ export class BlockcoreDidResolver {
       }
 
       // TODO: Is there any use putting NIP05 in DID Document?
-      // const nip05 = metadataObject.nip05;
+      // const nip05 = profile.nip05;
       // if (nip05) {
       // 	services.push({
       // 		id: `${parsed.did}#nip05`,
@@ -86,7 +87,10 @@ export class BlockcoreDidResolver {
         retrieved: new Date().toISOString(),
       },
       didDocumentMetadata: {
+        created: profile?.created_at,
+        updated: profile?.created_at,
         deactivated: false, // TODO: Check if the key is deactivated.
+        profile
       },
     };
 
