@@ -26,6 +26,8 @@ test('Create the resolver', async t => {
 
   t.assert(didResolution.didDocument.verificationMethod[0].publicKeyMultibase == 'z6DtPPzVD8nXDKTHG3x8cx8UpoVP6VSBsXaDhSWcoysUnkEY');
   t.assert(didResolution.didDocument.service[0].serviceEndpoint == 'https://sondreb.com');
+  t.assert(didResolution.didDocumentMetadata.profile !== null);
+  t.assert(didResolution.didDocumentMetadata.profile.name == 'sondreb');
 
   didResolution = await resolver.resolve('null');
   t.assert(didResolution.didResolutionMetadata.error == 'invalidDid');
@@ -53,4 +55,6 @@ test('Verify relay without profile or relay list', async t => {
 
   t.assert(didResolution.didDocument.verificationMethod[0].publicKeyMultibase == 'z6DtPPzVD8nXDKTHG3x8cx8UpoVP6VSBsXaDhSWcoysUnkEY');
   t.assert(didResolution.didDocument.service.length == 0);
+
+  t.assert(didResolution.didDocumentMetadata.profile == null);
 });
