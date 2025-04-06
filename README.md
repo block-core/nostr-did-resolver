@@ -4,6 +4,18 @@ Library that helps resolve DID Documents (decentralized identities) from the "di
 
 Specification: https://nostrcg.github.io/did-nostr/
 
+## Description
+
+This library is a JavaScript implementation of the Nostr DID Resolver. It allows you to resolve DIDs (Decentralized Identifiers) using the Nostr protocol. The resolver constructs the DID document from the events retrieived specified relays (and user's relay list) and returns it in a standard format.
+
+The relays provided (or default) will only be used to retrieve the relay list (kind:10002),
+upon retrieving the relay list, the resolver will use the relays from the list to retrieve the profile metadata (kind:0).
+
+If the profile metadata is not found on the user's relays, it will fall back to the provided (or default) relays for another attempt at finding the user profile.
+
+This ensures that Nostr can scale better and the initial bootstrapping is only to discover 
+the relay list (kind:10002).
+
 ## Usage
 
 ```sh
