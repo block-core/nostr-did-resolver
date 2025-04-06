@@ -13,8 +13,7 @@
     "lint": "eslint ./src/** --fix",
     "test": " ava",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.js\"",
-    "get-version": "node -p \"require('./package.json').version\"",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "get-version": "node -p \"require('./package.json').version\""
   },
   "repository": {
     "type": "git",
