@@ -19,10 +19,10 @@ export class BlockcoreDidResolver {
   async resolve(_did: string, parsed: ParsedDID, _resolver: Resolvable, _options: DIDResolutionOptions): Promise<DIDResolutionResult> {
     if (parsed.method !== 'nostr') {
       return {
+        didDocument: null,
         didResolutionMetadata: {
           error: 'methodNotSupported',
         },
-        didDocument: null,
         didDocumentMetadata: {},
       };
     }
@@ -80,11 +80,11 @@ export class BlockcoreDidResolver {
     const didDocument = this.getDocument(parsed.did, services);
 
     const resolution: DIDResolutionResult = {
+      didDocument: didDocument,
       didResolutionMetadata: {
         contentType: 'application/did+ld+json',
         retrieved: new Date().toISOString(),
       },
-      didDocument: didDocument,
       didDocumentMetadata: {
         deactivated: false, // TODO: Check if the key is deactivated.
       },
