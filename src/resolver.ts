@@ -30,16 +30,48 @@ export class BlockcoreDidResolver {
     const pool = new SimplePool();
     const services = [] as any[];
     let profile = null;
-
-    const metadata = await pool.get(this.#relays, {
-      kinds: [kinds.Metadata],
-      authors: [parsed.id],
-    });
+    let metadata = null;
 
     const relays = await pool.get(this.#relays, {
       kinds: [kinds.RelayList],
       authors: [parsed.id],
     });
+
+    let relayUrls: string[] = [];
+
+    if (relays) {
+      relayUrls = relays.tags.filter(tag => tag.length >= 2 && tag[0] === 'r').map(tag => tag[1]);
+
+      for (let i = 0; i < relayUrls.length; i++) {
+        services.push({
+          id: `${parsed.did}#${i + 1}`,
+          type: 'Relay',
+          serviceEndpoint: relayUrls[i],
+        });
+      }
+    }
+
+    // Attempt to connect to the user's defined relays, to help Nostr with
+    // scaling, we don't use the default relays here.
+    if (relayUrls.length > 0) {
+      const userPool = new SimplePool();
+
+      metadata = await userPool.get(relayUrls, {
+        kinds: [kinds.Metadata],
+        authors: [parsed.id],
+      });
+
+      userPool.close(relayUrls);
+    }
+
+    // If we for some reason did not find the user profile on their defined relays,
+    // or we didn't find relays, we will fall back to the default relays.
+    if (!metadata) {
+      metadata = await pool.get(this.#relays, {
+        kinds: [kinds.Metadata],
+        authors: [parsed.id],
+      });
+    }
 
     pool.close(this.#relays);
 
@@ -64,18 +96,6 @@ export class BlockcoreDidResolver {
       // 		serviceEndpoint: nip05,
       // 	});
       // }
-    }
-
-    if (relays) {
-      const relayUrls = relays.tags.filter(tag => tag.length >= 2 && tag[0] === 'r').map(tag => tag[1]);
-
-      for (let i = 0; i < relayUrls.length; i++) {
-        services.push({
-          id: `${parsed.did}#${i + 1}`,
-          type: 'Relay',
-          serviceEndpoint: relayUrls[i],
-        });
-      }
     }
 
     const didDocument = this.getDocument(parsed.did, services);

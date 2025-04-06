@@ -25,9 +25,9 @@ test('Create the resolver', async t => {
   t.assert(didResolution.didResolutionMetadata.contentType == 'application/did+ld+json');
 
   t.assert(didResolution.didDocument.verificationMethod[0].publicKeyMultibase == 'z6DtPPzVD8nXDKTHG3x8cx8UpoVP6VSBsXaDhSWcoysUnkEY');
-  t.assert(didResolution.didDocument.service[0].serviceEndpoint == 'https://sondreb.com');
   t.assert(didResolution.didDocumentMetadata.profile !== null);
   t.assert(didResolution.didDocumentMetadata.profile.name == 'sondreb');
+  t.assert(didResolution.didDocument.service.find(s => s.type === 'LinkedDomains')?.serviceEndpoint === 'https://sondreb.com');
 
   // Used to generate README example:
   // console.log(JSON.stringify(didResolution, null, 2));
