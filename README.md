@@ -42,7 +42,8 @@ Here is example of the output from the resolve function:
 {
   "didDocument": {
     "@context": [
-      "https://www.w3.org/ns/did/v1"
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/nostr/context"
     ],
     "id": "did:nostr:17e2889fba01021d048a13fd0ba108ad31c38326295460c21e69c43fa8fbe515",
     "verificationMethod": [

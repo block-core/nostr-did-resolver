@@ -147,7 +147,8 @@ export class BlockcoreDidResolver {
 
     let document = `{
             "@context": [
-              "https://www.w3.org/ns/did/v1"
+              "https://www.w3.org/ns/did/v1", 
+              "https://w3id.org/nostr/context"
             ],
             "id": "${did}",
             "verificationMethod": [
