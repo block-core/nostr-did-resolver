@@ -8,7 +8,7 @@ export function getResolver(relays?: string[]): Record<string, DIDResolver> {
 }
 
 export class BlockcoreDidResolver {
-  #relays = ['wss://relay.damus.io', 'wss://relay.primal.net', 'wss://nos.lol'];
+  #relays = ['wss://relay.damus.io/', 'wss://relay.primal.net/', 'wss://nos.lol/'];
 
   constructor(relays?: string[]) {
     if (relays) {
@@ -43,10 +43,12 @@ export class BlockcoreDidResolver {
       relayUrls = relays.tags.filter(tag => tag.length >= 2 && tag[0] === 'r').map(tag => tag[1]);
 
       for (let i = 0; i < relayUrls.length; i++) {
+        // Ensure trailing slash per DID Nostr spec requirement
+        const relayUrl = relayUrls[i].endsWith('/') ? relayUrls[i] : relayUrls[i] + '/';
         services.push({
           id: `${parsed.did}#${i + 1}`,
           type: 'Relay',
-          serviceEndpoint: relayUrls[i],
+          serviceEndpoint: relayUrl,
         });
       }
     }
